@@ -1,0 +1,500 @@
+/* =========================================================================
+   BASE FIX (auditoria 2026-07-10): este arquivo tinha sÃƒÂ³ o bloco de ajustes
+   mobile abaixo Ã¢â‚¬â€ faltava totalmente o import do Tailwind e as variÃƒÂ¡veis de
+   tema (shadcn/ui, style "new-york"). Sem isso o app renderiza sem nenhum
+   estilo.
+
+   AJUSTE 2 (mesmo dia): a primeira versÃƒÂ£o deste bloco usava a paleta padrÃƒÂ£o
+   "slate" do shadcn (cinza-azulado) por nÃƒÂ£o haver nenhuma cor original
+   recuperÃƒÂ¡vel. Isso deixava os componentes genÃƒÂ©ricos (Button, Card, Badge
+   etc. em src/components/ui/*) com uma cor visivelmente diferente do resto
+   do app, que usa cores da marca "gefinac" hardcoded diretamente nas classes
+   (ex.: bg-[#D9FF66], bg-[#1A1A1A]/88 Ã¢â‚¬â€ centenas de ocorrÃƒÂªncias em
+   src/components e src/routes). Tokens abaixo foram extraÃƒÂ­dos dessas classes
+   para os dois ficarem consistentes: fundo quase preto, cards #1A1A1A,
+   destaque verde-limÃƒÂ£o #D9FF66, positivo #2ECC71, negativo/destructive
+   #FF4D5E, roxo #A88BFF e azul #3BA3FF usados nos grÃƒÂ¡ficos.
+   ========================================================================= */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 1rem;
+  --background: #ffffff;
+  --foreground: #101411;
+  --card: #ffffff;
+  --card-foreground: #101411;
+  --popover: #ffffff;
+  --popover-foreground: #101411;
+  --primary: #d9ff66;
+  --primary-foreground: #101411;
+  --secondary: #f1f1f1;
+  --secondary-foreground: #101411;
+  --muted: #f1f1f1;
+  --muted-foreground: #6b7280;
+  --accent: #f1f1f1;
+  --accent-foreground: #101411;
+  --destructive: #ff4d5e;
+  --destructive-foreground: #ffffff;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #d9ff66;
+  --chart-1: #d9ff66;
+  --chart-2: #2ecc71;
+  --chart-3: #3ba3ff;
+  --chart-4: #a88bff;
+  --chart-5: #ff4d5e;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #101411;
+  --sidebar-primary: #d9ff66;
+  --sidebar-primary-foreground: #101411;
+  --sidebar-accent: #f1f1f1;
+  --sidebar-accent-foreground: #101411;
+  --sidebar-border: #e5e5e5;
+  --sidebar-ring: #d9ff66;
+}
+
+.dark {
+  --background: #0b0b0b;
+  --foreground: #ffffff;
+  --card: #1a1a1a;
+  --card-foreground: #ffffff;
+  --popover: #1a1a1a;
+  --popover-foreground: #ffffff;
+  --primary: #d9ff66;
+  --primary-foreground: #101411;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #ffffff;
+  --muted: #1a1a1a;
+  --muted-foreground: rgba(255, 255, 255, 0.55);
+  --accent: #1a1a1a;
+  --accent-foreground: #ffffff;
+  --destructive: #ff4d5e;
+  --destructive-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: #d9ff66;
+  --chart-1: #d9ff66;
+  --chart-2: #2ecc71;
+  --chart-3: #3ba3ff;
+  --chart-4: #a88bff;
+  --chart-5: #ff4d5e;
+  --sidebar: #1a1a1a;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #d9ff66;
+  --sidebar-primary-foreground: #101411;
+  --sidebar-accent: #1a1a1a;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #d9ff66;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Cole este bloco no FINAL do arquivo src/styles.css.
+   NÃƒÆ’Ã‚Â£o precisa importar styles.mobile.css nos arquivos .tsx. */
+
+/* =========================
+   GEFINAC MOBILE POLISH
+   Ajustes globais para visual responsivo em telas pequenas.
+========================= */
+
+@media (max-width: 640px) {
+  html,
+  body,
+  #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    background: #0b0b0b;
+  }
+
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Header do app */
+  .ge-app-header-inner {
+    min-height: 64px !important;
+    padding: 0.75rem 0.875rem !important;
+    gap: 0.6rem !important;
+  }
+
+  .ge-app-brand {
+    margin-right: 0 !important;
+    max-width: 128px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1.125rem !important;
+  }
+
+  .ge-app-header-nav {
+    display: none !important;
+  }
+
+  .ge-app-header-actions {
+    gap: 0.45rem !important;
+    margin-left: auto !important;
+  }
+
+  .ge-app-header-actions > button,
+  .ge-app-header-actions > div > button {
+    height: 2.5rem !important;
+    min-width: 2.5rem !important;
+  }
+
+  .ge-app-header-actions > button[title="Buscar"],
+  .ge-app-header-actions > button[title="NotificaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes"] {
+    display: none !important;
+  }
+
+  .ge-app-header-actions > button[title="Buscar"],
+  .ge-app-header-actions > button[title="NotificaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes"] {
+    display: none !important;
+  }
+
+  .ge-app-header-actions > div > button {
+    padding-left: 0.35rem !important;
+    padding-right: 0.55rem !important;
+  }
+
+  .ge-app-main {
+    padding: 1rem 0.75rem 6rem !important;
+  }
+
+  /* Bottom nav visÃ­vel apenas no mobile */
+  .ge-mobile-bottom-nav {
+    display: block !important;
+  }
+
+  /* Corrige overflow horizontal do search em Entidades */
+  input[placeholder^="Buscar CPF"],
+  input[placeholder^="Buscar CNPJ"] {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Barra de aÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes das pÃƒÆ’Ã‚Â¡ginas */
+  .ge-mobile-toolbar {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 0.65rem !important;
+    align-items: center !important;
+  }
+
+  .ge-mobile-toolbar-entity,
+  .ge-mobile-toolbar .ge-mobile-full {
+    grid-column: 1 / -1;
+    width: 100% !important;
+  }
+
+  .ge-mobile-toolbar button,
+  .ge-mobile-toolbar a {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 2.75rem !important;
+    justify-content: center !important;
+    padding-inline: 0.85rem !important;
+    border-radius: 999px !important;
+    font-size: 0.875rem !important;
+    line-height: 1 !important;
+    white-space: nowrap;
+  }
+
+  .ge-mobile-toolbar button svg,
+  .ge-mobile-toolbar a svg {
+    margin-right: 0.4rem !important;
+    height: 1rem !important;
+    width: 1rem !important;
+  }
+
+  .ge-mobile-tabs-row {
+    grid-column: 1 / -1;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100% !important;
+    gap: 0.5rem !important;
+    overflow: visible !important;
+  }
+
+  .ge-mobile-tabs-row button {
+    padding-inline: 0.65rem !important;
+  }
+
+  /* Login/cadastro */
+  .ge-auth-page {
+    min-height: 100dvh !important;
+    overflow-y: auto !important;
+  }
+
+  .ge-auth-section {
+    min-height: 100dvh !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0.75rem !important;
+  }
+
+  .ge-auth-card-wrap {
+    max-width: 23rem !important;
+  }
+
+  .ge-auth-card {
+    max-height: calc(100dvh - 1.5rem);
+    overflow-y: auto !important;
+    border-radius: 1.7rem !important;
+  }
+
+  .ge-auth-card-header {
+    padding: 1rem 1.15rem !important;
+  }
+
+  .ge-auth-logo {
+    height: 2.6rem !important;
+    width: 2.6rem !important;
+    border-radius: 1.15rem !important;
+  }
+
+  .ge-auth-logo svg {
+    height: 1.25rem !important;
+    width: 1.25rem !important;
+  }
+
+  .ge-auth-card-body {
+    padding: 1rem 1.15rem !important;
+  }
+
+  .ge-auth-card-body input,
+  .ge-auth-card-body button {
+    height: 2.65rem !important;
+  }
+
+  .ge-auth-note {
+    display: none !important;
+  }
+
+  /* Cards e grÃƒÆ’Ã‚Â¡ficos */
+  .ge-mobile-chart-card {
+    border-radius: 1.55rem !important;
+  }
+
+  .ge-mobile-chart-box {
+    min-height: 170px !important;
+    overflow: hidden !important;
+  }
+
+  .ge-mobile-chart-box svg {
+    min-height: 155px !important;
+  }
+
+  /* Lista de transaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes */
+  .ge-transaction-row {
+    display: grid !important;
+    grid-template-columns: auto 2.5rem minmax(0, 1fr) auto auto;
+    gap: 0.65rem !important;
+    align-items: center !important;
+    padding: 0.9rem !important;
+  }
+
+  .ge-transaction-row > div:nth-child(3) {
+    min-width: 0 !important;
+  }
+
+  .ge-transaction-row .ge-tx-value {
+    justify-self: end;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .ge-transaction-row button {
+    height: 2.25rem !important;
+    width: 2.25rem !important;
+  }
+
+  .ge-transaction-row button svg {
+    height: 1rem !important;
+    width: 1rem !important;
+  }
+
+  /* Modais */
+  [role="dialog"] {
+    max-width: calc(100vw - 1.5rem) !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .ge-mobile-toolbar {
+    gap: 0.55rem !important;
+  }
+
+  .ge-mobile-toolbar button,
+  .ge-mobile-toolbar a {
+    font-size: 0.82rem !important;
+    padding-inline: 0.65rem !important;
+  }
+
+  .ge-mobile-tabs-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ge-mobile-tabs-row button {
+    font-size: 0.78rem !important;
+    padding-inline: 0.45rem !important;
+  }
+
+  .ge-mobile-tabs-row button svg {
+    display: none !important;
+  }
+
+  .ge-transaction-row {
+    grid-template-columns: auto 2.35rem minmax(0, 1fr) auto;
+  }
+
+  .ge-transaction-row .ge-tx-value {
+    grid-column: 3 / -1;
+    justify-self: start;
+    text-align: left;
+  }
+}
+
+/* Home dashboard: em telas pequenas remove a grade fixa de 12 col x 86px
+   e deixa cada widget ocupar largura total com altura natural. */
+@media (max-width: 767px) {
+  .ge-home-grid {
+    grid-auto-rows: auto !important;
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .ge-home-grid > section {
+    grid-row: auto !important;
+    grid-column: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .ge-home-grid > section > div {
+    height: auto !important;
+    overflow: visible !important;
+  }
+}
+
+/* ================================================================
+   GFinancy Responsivo â€” Parte 2
+   PÃ¡ginas internas, formulÃ¡rios, diÃ¡logos, listas e tabelas.
+   ================================================================ */
+@media (max-width: 767px) {
+  html,
+  body,
+  #root {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .ge-mobile-toolbar {
+    width: 100%;
+    align-items: stretch !important;
+  }
+
+  .ge-mobile-toolbar > button,
+  .ge-mobile-toolbar > a,
+  .ge-mobile-toolbar .ge-mobile-full,
+  .ge-mobile-toolbar-entity {
+    width: 100% !important;
+  }
+
+  .ge-mobile-toolbar > button {
+    justify-content: center;
+  }
+
+  .ge-mobile-tabs-row {
+    margin-inline: -0.25rem;
+    width: calc(100% + 0.5rem) !important;
+    padding: 0.15rem 0.25rem 0.5rem;
+    scrollbar-width: none;
+  }
+
+  .ge-mobile-tabs-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  [role="dialog"] {
+    border-radius: 1.25rem !important;
+  }
+
+  [role="dialog"] input,
+  [role="dialog"] button[role="combobox"],
+  [role="dialog"] textarea {
+    font-size: 16px;
+  }
+
+  .ge-responsive-table {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ge-responsive-table table {
+    min-width: 720px;
+  }
+
+  .recharts-wrapper,
+  .recharts-surface {
+    max-width: 100% !important;
+  }
+
+  .recharts-legend-wrapper {
+    position: static !important;
+    width: 100% !important;
+    margin-top: 0.5rem;
+  }
+}
